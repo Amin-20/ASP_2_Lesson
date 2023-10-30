@@ -1,0 +1,29 @@
+﻿@model ProductViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    @foreach (var item in Model.Products)
+    {
+        <section class="productContainer">
+            <section class="imageArea">
+                <img src="@item.ImagePath" alt="smoke">
+            </section>
+            <p>@item.Name</p>
+            <p id="category">@item.Category</p>
+            <p id="price">@item.Price ₼</p>
+            <button>DELETE</button>
+            <button id="update">UPDATE</button>
+        </section>
+    }
+</body>
+
+</html>
