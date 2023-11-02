@@ -11,17 +11,26 @@
 </head>
 
 <body>
+
+    @* <a asp-action="Add" asp-controller="Product">
+        <button class="addBtn">Add Product</button>
+    </a> *@
+
     @foreach (var item in Model.Products)
     {
         <section class="productContainer">
             <section class="imageArea">
-                <img src="@item.ImagePath" alt="smoke">
+                <img src="@item.ImagePath" alt="productImg">
             </section>
             <p>@item.Name</p>
             <p id="category">@item.Category</p>
             <p id="price">@item.Price ₼</p>
-            <button>DELETE</button>
-            <button id="update">UPDATE</button>
+            <a asp-action="Delete" asp-controller="Product" asp-route-myid="@item.Id">
+                <button>DELETE</button>
+            </a>
+            <a asp-action="Update" asp-controller="Product" asp-route-myid="@item.Id">
+                <button id="update">UPDATE</button>
+            </a>
         </section>
     }
 </body>

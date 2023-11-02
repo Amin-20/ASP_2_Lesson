@@ -1,18 +1,13 @@
 ﻿using ASP_2_Lesson.Entities;
 using ASP_2_Lesson.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ASP_2_Lesson.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
-        public  List<Product> Products { get; set; } = new List<Product>
+        public static List<Product> Products { get; set; } = new List<Product>
         {
             new Product
             {
@@ -59,6 +54,51 @@ namespace ASP_2_Lesson.Controllers
                 Products = Products
             };
             return View(ProductVM);
+        }
+
+        [HttpGet]
+        public IActionResult Update(int myid)
+        {
+            myid -= 1;
+            var product = Products[myid];
+            var vm = new ProductUpdateViewModel
+            {
+                Product = product
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Update(ProductUpdateViewModel vm, int myid)
+        {
+            myid -= 1;
+            for (int i = 0; i < Products.Count; i++)
+            {
+                if (Products[i].Id == vm.Product.Id)
+                {
+                    myid = Products[i].Id;
+                    break;
+                }
+            }
+            var prod = Products[myid];
+            prod.Price = vm.Product.Price;
+            prod.Name = vm.Product.Name;
+            prod.Category = vm.Product.Category;
+            prod.Discount = vm.Product.Discount;
+            prod.ImagePath = vm.Product.ImagePath;
+            return RedirectToAction("Index", "Product");
+        }
+
+        public IActionResult Delete(int myid)
+        {
+            myid -= 1;
+            var prod = Products[myid];
+            Products.Remove(prod);
+            for (int i = (myid); i < Products.Count; i++)
+            {
+                Products[i].Id--;
+            }
+            return RedirectToAction("Index", "Product");
         }
     }
 }
