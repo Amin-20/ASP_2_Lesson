@@ -100,5 +100,23 @@ namespace ASP_2_Lesson.Controllers
             }
             return RedirectToAction("Index", "Product");
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            var vm = new ProductAddViewModel
+            {
+                Product = new Product(),
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Add(ProductAddViewModel vm)
+        {
+            Products.Add(vm.Product);
+            vm.Product.Id = Products.Count;
+            return RedirectToAction("index");
+        }
     }
 }
