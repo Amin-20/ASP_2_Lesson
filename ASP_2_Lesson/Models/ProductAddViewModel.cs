@@ -1,8 +1,8 @@
 ﻿using ASP_2_Lesson.Entities;
 
-namespace ASP_2_Lesson
+namespace ASP_2_Lesson.Models
 {
-    internal class ProductAddViewModel
+    public class ProductAddViewModel
     {
         public Product Product { get; set; }
     }
